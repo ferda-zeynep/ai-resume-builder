@@ -2,7 +2,7 @@
 An intelligent full-stack application that leverages AI to help users build professional, ATS-friendly resumes in minutes. Built with Next.js 14, this platform offers a seamless experience from data entry to PDF export.
 
 🔗 Live Demo
-[Vercel Linkini Buraya Yapıştır]
+https://ai-resume-builder-bay-mu.vercel.app/
 
 📝 Project Description
 This project was designed to simplify the resume-building process. By integrating AI models, the application suggests professional summaries and work experience bullet points based on the user's job title, ensuring a high-quality output tailored for the modern job market.
