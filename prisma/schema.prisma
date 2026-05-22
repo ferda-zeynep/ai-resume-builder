@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Resume {
+  id            String   @id @default(cuid())
+  userId        String
+  title         String
+  content       Json
+  template      String   @default("modern")
+  downloadCount Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model UserToken {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  tokens    Int      @default(10) // Yeni üyelere 10 hediye kredi verelim
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
