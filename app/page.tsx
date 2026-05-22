@@ -55,7 +55,7 @@ export default function Home() {
                   Dashboard
                 </Button>
               </Link>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
             </div>
           )}
         </div>
