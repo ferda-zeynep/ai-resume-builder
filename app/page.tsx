@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Sparkles, Layout, ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser, SignInButton, SignUpButton } from "@clerk/nextjs";
 
 export default function Home() {
   const { isSignedIn } = useUser();
@@ -19,7 +19,7 @@ export default function Home() {
       <nav className="flex items-center justify-between px-6 py-6 md:px-20 border-b border-slate-50 sticky top-0 bg-white/80 backdrop-blur-md z-50">
         <div className="flex items-center gap-2">
           <div
-            className={`${primaryBg} p-2 rounded-lg shadow-lg shadow-sky-200`}
+            className={`p-2 rounded-lg shadow-lg shadow-sky-200 ${primaryBg}`}
           >
             <Layout className="text-white w-6 h-6" />
           </div>
@@ -31,19 +31,21 @@ export default function Home() {
         <div className="flex items-center gap-6">
           {!isSignedIn ? (
             <>
-              <Link
-                href="/sign-in"
-                className="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors"
-              >
-                Sign In
-              </Link>
-              <Link href="/sign-up">
+              {/* Clerk pre-built Sign In Modal trigger */}
+              <SignInButton mode="modal">
+                <button className="text-sm font-semibold text-slate-600 hover:text-sky-500 transition-colors">
+                  Sign In
+                </button>
+              </SignInButton>
+
+              {/* Clerk pre-built Sign Up Modal trigger */}
+              <SignUpButton mode="modal">
                 <Button
-                  className={`${primaryBg} ${primaryHover} text-white rounded-full px-6 shadow-lg shadow-sky-100`}
+                  className={`text-white rounded-full px-6 shadow-lg shadow-sky-100 ${primaryBg} ${primaryHover}`}
                 >
                   Get Started
                 </Button>
-              </Link>
+              </SignUpButton>
             </>
           ) : (
             <div className="flex items-center gap-4">
@@ -85,17 +87,28 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-              <Button
-                size="lg"
-                className={`${primaryBg} ${primaryHover} text-white text-lg px-10 h-14 rounded-2xl shadow-xl shadow-sky-200 gap-2 group transition-all`}
-              >
-                {isSignedIn ? "Go to Dashboard" : "Create My Resume"}
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+            {isSignedIn ? (
+              <Link href="/dashboard">
+                <Button
+                  size="lg"
+                  className={`text-white text-lg px-10 h-14 rounded-2xl shadow-xl shadow-sky-200 gap-2 group transition-all ${primaryBg} ${primaryHover}`}
+                >
+                  Go to Dashboard
+                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            ) : (
+              <SignUpButton mode="modal">
+                <Button
+                  size="lg"
+                  className={`text-white text-lg px-10 h-14 rounded-2xl shadow-xl shadow-sky-200 gap-2 group transition-all ${primaryBg} ${primaryHover}`}
+                >
+                  Create My Resume
+                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </SignUpButton>
+            )}
 
-            {/* Explore Templates Button */}
             <Link href="/dashboard/templates">
               <Button
                 size="lg"
@@ -157,7 +170,7 @@ export default function Home() {
       <footer className="py-12 px-6 md:px-20 text-center bg-white">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center gap-2 opacity-80">
-            <div className={`${primaryBg} p-1.5 rounded-md`}>
+            <div className={`p-1.5 rounded-md ${primaryBg}`}>
               <Layout className="text-white w-4 h-4" />
             </div>
             <span className="font-black tracking-tighter uppercase">
@@ -165,7 +178,7 @@ export default function Home() {
             </span>
           </div>
           <p className="text-slate-400 text-xs tracking-widest uppercase font-bold">
-            Built with Next.js 15 & AI Technology
+            Built with Next.js & AI Technology
           </p>
           <div className="flex gap-8 text-slate-400 text-sm font-semibold">
             <Link href="#" className="hover:text-sky-500 transition-colors">
